@@ -1,0 +1,22 @@
+body {
+    background-color: lightGray;
+    text-align: center;
+}
+
+.main-box {
+    text-align: center;
+}
+
+.button {
+    background: gray;
+}
+
+.dark {
+    background-color: black;
+    color: white;
+}
+
+.light {
+    background-color: #f1f1f1;
+    color: #ccc;
+}

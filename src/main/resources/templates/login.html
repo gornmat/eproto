@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Login</title>
+</head>
+<body>
+<table>
+    <form action="#" th:action="@{/userLogin}" th:object="${accountDTO}" method="get">
+        <tr>
+            <td><p>Login</p></td>
+            <td><input type="text" th:field="*{login}"/></td>
+        </tr>
+        <tr>
+            <td><p>Password</p></td>
+            <td><input type="text" th:field="*{password}"/></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Login"/></td>
+            <td><a th:href="@{/index}">Cancel</a></td>
+        </tr>
+    </form>
+</table>
+</body>
+</html>
