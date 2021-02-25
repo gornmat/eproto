@@ -7,11 +7,17 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class StudentService {
 
     private final StudentRepository repository;
+
+    public List<Student> getStudentsByClazz(String clazz) {
+        return repository.getAllByClazz(clazz);
+    }
 
     public Student getStudentByIdParent(Long idParent) {
         return repository.getStudentByIdParent(idParent).orElse(new Student());

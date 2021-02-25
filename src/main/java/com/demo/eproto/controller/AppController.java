@@ -34,7 +34,8 @@ public class AppController {
 
         ModelAndView mav = new ModelAndView("index");
         if ("ROLE_ADMIN".equals(role)) {
-            //wyswietlanie nauczyciel
+            var students = studentService.getStudentsByClazz(user.getClazz());
+            mav.addObject("students", students);
         }
 
         if ("ROLE_USER".equals(role)) {
