@@ -10,27 +10,60 @@
 <body>
 <h2>Welcome</h2>
 <p>Spring Security Thymeleaf tutorial</p>
-<div sec:authorize="hasRole('USER')">Text visible to user.</div>
-<div sec:authorize="hasRole('ADMIN')">Text visible to admin.</div>
-<div sec:authorize="isAuthenticated()">Text visible only to
-    authenticated users.</div>
-Authenticated username:
-<div sec:authentication="name"></div>
-Authenticated user roles:
-<div sec:authentication="principal.authorities"></div>
+
+<!--NAUCZYCIEL-->
+<div sec:authorize="hasRole('ADMIN')">
+    ADMIN
+    <div align="center">
+        <div>
+            <button>Assign Task</button>
+        </div>
+        <div>
+            <button>Rate the Task</button>
+        </div>
+        <div>
+            <button>Show students list</button>
+        </div>
+    </div>
+</div>
+
+<!--RODZIC-->
+<div sec:authorize="hasRole('USER')">
+    USER
+    <div>
+        <table>
+            <tr>
+                <td><p>First Name</p></td>
+                <td><p>Last Name</p></td>
+            </tr>
+            <tr>
+                <td><input type="text"/></td>
+                <td><input type="text"/></td>
+            </tr>
+            <tr>
+                <td>
+                    <button><a th:href="@{/indexView}">Register Child</a></button>
+                </td>
+                <td>
+                    <button><a th:href="@{/indexView}">Edit Child</a></button>
+                </td>
+                <td>
+                    <button><a th:href="@{/indexView}">Remove Child</a></button>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+</div>
+
+<!--Authenticated username:-->
+<!--<div sec:authentication="name"></div>-->
+<!--Authenticated user roles:-->
+<!--<div sec:authentication="principal.authorities"></div>-->
 
 <form th:action="@{/logout}" method="post">
-    <input type="submit" value="Logout" />
+    <input type="submit" value="Logout"/>
 </form>
 
-<!--<div>-->
-<!--    <div>-->
-<!--        EProto System-->
-<!--    </div>-->
-<!--    <div>-->
-<!--        <button><a th:href="@{/loginView}">Login</a></button>-->
-<!--        <button><a th:href="@{/registerView}">Register</a></button>-->
-<!--    </div>-->
-<!--</div>-->
 </body>
 </html>

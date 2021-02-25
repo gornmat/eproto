@@ -1,4 +1,3 @@
-DROP TABLE IF EXISTS ACCOUNTS;
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users
@@ -12,8 +11,8 @@ CREATE TABLE users
 );
 
 insert into users (user_name, password, clazz, role, enabled)
-values ('test', '$2a$10$XptfskLsT1l/bRTLRiiCgejHqOpgXFreUnNUa35gJdCr2v2QbVFzu', 'test', 'ADMIN', true),
-       ('test1', '$2a$10$XptfskLsT1l/bRTLRiiCgejHqOpgXFreUnNUa35gJdCr2v2QbVFzu', 'test1', 'USER', true);
+values ('testN', '$2a$10$Tr.GLjjbwoEZMo.8VsR7JOkTo7YYjN9ZHXHrRG6bM1rtgMx8XmPtO', 'testClazz', 'ROLE_ADMIN', true),
+       ('testR', '$2a$10$Tr.GLjjbwoEZMo.8VsR7JOkTo7YYjN9ZHXHrRG6bM1rtgMx8XmPtO', 'testClazz', 'ROLE_USER', true);
 
 
 DROP TABLE IF EXISTS students;
@@ -27,4 +26,4 @@ CREATE TABLE students
 );
 
 insert into students (id_parent, first_name, last_name, clazz)
-values (1, 'test', 'test', 'test');
+values (2, 'test', 'test', 'testClazz');

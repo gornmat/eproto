@@ -27,26 +27,16 @@
             <td>Role</td>
             <td>
                 <select th:field="*{role}">
-                    <option value="ADMIN">Admin</option>
-                    <option value="USER">User</option>
+                    <option value="ROLE_ADMIN">Admin</option>
+                    <option value="ROLE_USER">User</option>
                 </select>
             </td>
         </tr>
         <tr>
             <td><input type="submit" value="Submit"/></td>
-            <td><a th:href="@{/index}"/>Cancel</td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <button type="submit">Submit</button>
-            </td>
+            <td><button th:href="@{/index}">Cancel</button></td>
         </tr>
     </table>
-    <input type="submit" value="Submit"/>
-</form>
-
-<form th:href="@{/index}" method="post">
-    <input type="submit" value="Cancel"/>
 </form>
 
 </body>

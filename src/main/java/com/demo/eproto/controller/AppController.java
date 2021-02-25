@@ -1,0 +1,57 @@
+package com.demo.eproto.controller;
+
+import com.demo.eproto.model.User;
+import com.demo.eproto.service.UserService;
+import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.logging.Logger;
+
+@Controller
+@AllArgsConstructor
+public class AppController {
+
+    private static final Logger LOGGER = Logger.getLogger(AppController.class.getName());
+    private final UserService userService;
+
+    @RequestMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    @RequestMapping({"/index", "/"})
+    public String index() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        var userName = authentication.getName();
+        var role = authentication.getAuthorities().stream().findFirst().get().toString();
+        if ("ROLE_ADMIN".equals(role)) {
+            //wyswietlanie nauczyciel
+        }
+
+        if ("ROLE_USER".equals(role)) {
+            //wyswietlanie rodzic
+        }
+
+        return "index";
+    }
+
+    @RequestMapping("/register")
+    public String register(Model model) {
+        User user = new User();
+        model.addAttribute("user", user);
+        return "register";
+    }
+
+    @PostMapping("createAccount")
+    public String createStudent(@ModelAttribute("user") User user) {
+        LOGGER.info("TEST");
+        userService.createUser(user);
+        return "login";
+    }
+}
