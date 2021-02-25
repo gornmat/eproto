@@ -4,7 +4,6 @@ import com.demo.eproto.model.Student;
 import com.demo.eproto.model.User;
 import com.demo.eproto.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,8 +18,9 @@ public class StudentService {
         return repository.getAllByClazz(clazz);
     }
 
-    public Student getStudentByIdParent(Long idParent) {
-        return repository.getStudentByIdParent(idParent).orElse(new Student());
+    public Student getStudentForParent(User user) {
+        return repository.getStudentByIdParent(user.getId())
+                .orElse(new Student(user.getId(), user.getClazz()));
     }
 
     public void save(Student student) {

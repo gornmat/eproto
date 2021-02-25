@@ -39,7 +39,7 @@ public class AppController {
         }
 
         if ("ROLE_USER".equals(role)) {
-            var student = studentService.getStudentByIdParent(user.getId());
+            var student = studentService.getStudentForParent(user);
             mav.addObject("student", student);
         }
 
