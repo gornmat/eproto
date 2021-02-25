@@ -9,11 +9,9 @@
 </head>
 <body>
 <h2>Welcome</h2>
-<p>Spring Security Thymeleaf tutorial</p>
 
 <!--NAUCZYCIEL-->
 <div sec:authorize="hasRole('ADMIN')">
-    ADMIN
     <div align="center">
         <div>
             <button>Assign Task</button>
@@ -29,37 +27,31 @@
 
 <!--RODZIC-->
 <div sec:authorize="hasRole('USER')">
-    USER
     <div>
-        <table>
-            <tr>
-                <td><p>First Name</p></td>
-                <td><p>Last Name</p></td>
-            </tr>
-            <tr>
-                <td><input type="text"/></td>
-                <td><input type="text"/></td>
-            </tr>
-            <tr>
-                <td>
-                    <button><a th:href="@{/indexView}">Register Child</a></button>
-                </td>
-                <td>
-                    <button><a th:href="@{/indexView}">Edit Child</a></button>
-                </td>
-                <td>
-                    <button><a th:href="@{/indexView}">Remove Child</a></button>
-                </td>
-            </tr>
-        </table>
+        <form th:object="${student}" method="post">
+            <table>
+                <tr>
+                    <td><p>First Name</p></td>
+                    <td><input type="text" th:value="*{firstName}"/></td>
+                </tr>
+                <tr>
+                    <td><p>Last Name</p></td>
+                    <td><input type="text" th:value="*{lastName}"/></td>
+                </tr>
+                <tr>
+                    <td><p>Class</p></td>
+                    <td><input type="text" th:value="*{clazz}" readonly="readonly"/></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <button type="submit">Save</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
 
     </div>
 </div>
-
-<!--Authenticated username:-->
-<!--<div sec:authentication="name"></div>-->
-<!--Authenticated user roles:-->
-<!--<div sec:authentication="principal.authorities"></div>-->
 
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Logout"/>

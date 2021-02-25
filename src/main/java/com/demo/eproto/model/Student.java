@@ -15,6 +15,7 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
     private Long id;
+    private Long idParent;
     private String firstName;
     private String lastName;
     private String clazz;

@@ -1,5 +1,6 @@
 package com.demo.eproto.service;
 
+import com.demo.eproto.exception.UserNotFoundException;
 import com.demo.eproto.model.User;
 import com.demo.eproto.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,5 +19,9 @@ public class UserService {
         user.setPassword(password);
         user.setEnabled(true);
         repository.save(user);
+    }
+
+    public User getUserByName(String userName) {
+        return repository.getUserByUserName(userName).orElseThrow(UserNotFoundException::new);
     }
 }
