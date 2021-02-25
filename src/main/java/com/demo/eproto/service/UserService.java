@@ -1,22 +1,28 @@
 package com.demo.eproto.service;
 
+import com.demo.eproto.model.User;
 import com.demo.eproto.repository.UserRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UserService {
 
+    private static final BCryptPasswordEncoder crypt = new BCryptPasswordEncoder();
     private final UserRepository repository;
 
-//    public User getAccount(Long id) {
+    //    public User getAccount(Long id) {
 //        return repository.findById(id).orElseThrow(AccountNotFoundException::new);
 //    }
 //
-//    public void createAccount(User user) {
-//        repository.save(user);
-//    }
+    public void createAccount(User user) {
+        var password = crypt.encode(user.getPassword());
+        user.setPassword(password);
+        user.setEnabled(true);
+        repository.save(user);
+    }
 //
 //    public User getAccountByLogin(AccountDTO accountDTO) {
 //        return repository.getAccountByLogin(accountDTO.getLogin())

@@ -2,14 +2,12 @@ package com.demo.eproto;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.sql.DataSource;
 
@@ -25,23 +23,23 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.jdbcAuthentication().passwordEncoder(new BCryptPasswordEncoder())
                 .dataSource(dataSource)
                 .passwordEncoder(new BCryptPasswordEncoder())
-                .usersByUsernameQuery("select username, password, enabled from users where username=?")
-                .authoritiesByUsernameQuery("select username, role from users where username=?");
+                .usersByUsernameQuery("select user_name, password, enabled from users where user_name=?")
+                .authoritiesByUsernameQuery("select user_name, role from users where user_name=?");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .and().authorizeRequests().antMatchers("/register").permitAll()
+                .and().authorizeRequests().antMatchers("/createAccount").permitAll()
+                .and().authorizeRequests().antMatchers("/h2-console/**").permitAll()
                 .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .permitAll()
+                .and().formLogin().loginPage("/login").permitAll()
                 .successForwardUrl("/index")
-                .and()
-                .logout()
-                .permitAll();
+                .and().logout().permitAll();
+
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
     }
 
 //    @Override

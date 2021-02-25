@@ -5,7 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-@Entity(name = "user")
+@Entity(name = "users")
 @Data
 public class User {
 
@@ -16,7 +16,7 @@ public class User {
     private String userName;
     private String password;
     private String clazz;
-    private boolean teacher;
+    private String role;
     private boolean enabled;
 
 }

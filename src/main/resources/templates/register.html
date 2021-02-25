@@ -9,38 +9,45 @@
 </head>
 <body>
 <h1>Register</h1>
+<form action="#" th:action="@{/createAccount}" th:object="${user}" method="post">
+    <table border="1">
+        <tr>
+            <td>UserName</td>
+            <td><input type="text" th:field="*{userName}"/></td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td><input type="password" th:field="*{password}"/></td>
+        </tr>
+        <tr>
+            <td>Class</td>
+            <td><input type="text" th:field="*{clazz}"/></td>
+        </tr>
+        <tr>
+            <td>Role</td>
+            <td>
+                <select th:field="*{role}">
+                    <option value="ADMIN">Admin</option>
+                    <option value="USER">User</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Submit"/></td>
+            <td><a th:href="@{/index}"/>Cancel</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">Submit</button>
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="Submit"/>
+</form>
 
-<!--<table border="1">-->
-<!--    <form action="#" th:action="@{/createAccount}" th:object="${user}" method="post">-->
-<!--        <tr>-->
-<!--            <td><p>login</p></td>-->
-<!--            <td><input type="text" th:field="*{login}"/></td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--            <td><p>password</p></td>-->
-<!--            <td><input type="text" th:field="*{password}"/></td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--            <td><p>clazz</p></td>-->
-<!--            <td><input type="text" th:field="*{clazz}"/></td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--            <td><p>teacher</p></td>-->
-<!--            <td>-->
-<!--                <select th:field="*{teacher}">-->
-<!--                    <option value="True">Yes</option>-->
-<!--                    <option value="False">No</option>-->
-<!--                </select>-->
-<!--            </td>-->
-<!--        </tr>-->
-
-<!--        <tr>-->
-<!--            <td><input type="submit" value="Submit"/></td>-->
-<!--            <td><a th:href="@{/indexView}"/>Cancel</td>-->
-<!--        </tr>-->
-<!--    </form>-->
-<!--</table>-->
-
+<form th:href="@{/index}" method="post">
+    <input type="submit" value="Cancel"/>
+</form>
 
 </body>
 </html>
