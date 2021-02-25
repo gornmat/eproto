@@ -5,17 +5,18 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-@Entity(name = "accounts")
+@Entity(name = "user")
 @Data
-public class Account {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
     private Long id;
-    private String login;
+    private String userName;
     private String password;
     private String clazz;
     private boolean teacher;
+    private boolean enabled;
 
 }

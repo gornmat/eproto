@@ -8,21 +8,38 @@
     <title>Login</title>
 </head>
 <body>
-<table>
-    <form action="#" th:action="@{/userLogin}" th:object="${accountDTO}" method="get">
-        <tr>
-            <td><p>Login</p></td>
-            <td><input type="text" th:field="*{login}"/></td>
-        </tr>
-        <tr>
-            <td><p>Password</p></td>
-            <td><input type="text" th:field="*{password}"/></td>
-        </tr>
-        <tr>
-            <td><input type="submit" value="Login"/></td>
-            <td><a th:href="@{/index}">Cancel</a></td>
-        </tr>
-    </form>
-</table>
+<!--<table>-->
+<!--    <form action="#" th:action="@{/userLogin}" th:object="${accountDTO}" method="get">-->
+<!--        <tr>-->
+<!--            <td><p>Login</p></td>-->
+<!--            <td><input type="text" th:field="*{login}"/></td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td><p>Password</p></td>-->
+<!--            <td><input type="text" th:field="*{password}"/></td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td><input type="submit" value="Login"/></td>-->
+<!--            <td><a th:href="@{/indexView}">Cancel</a></td>-->
+<!--        </tr>-->
+<!--    </form>-->
+<!--</table>-->
+
+
+<!--===================================-->
+<h2>Custom Login Page</h2>
+<form th:action="@{/login}" method="post">
+    <label for="username">Username</label>: <input type="text"
+                                                   id="username" name="username" autofocus="autofocus" />
+    <label for="password">Password</label>: <input type="password" id="password"
+                                                name="password" /><input type="submit" value="Log in" />
+</form>
+
+<form th:action="@{/register}" method="post">
+
+    <input type="submit" value="Register" />
+</form>
+<!--===================================-->
+
 </body>
 </html>

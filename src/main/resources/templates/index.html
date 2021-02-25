@@ -1,21 +1,36 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/styles.css">
     <title>Home</title>
 </head>
 <body>
-<div>
-    <div>
-        EProto System
-    </div>
-    <div>
-        <button><a th:href="@{/login}">Login</a></button>
-        <button><a th:href="@{/register}">Register</a></button>
-    </div>
-</div>
+<h2>Welcome</h2>
+<p>Spring Security Thymeleaf tutorial</p>
+<div sec:authorize="hasRole('USER')">Text visible to user.</div>
+<div sec:authorize="hasRole('ADMIN')">Text visible to admin.</div>
+<div sec:authorize="isAuthenticated()">Text visible only to
+    authenticated users.</div>
+Authenticated username:
+<div sec:authentication="name"></div>
+Authenticated user roles:
+<div sec:authentication="principal.authorities"></div>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout" />
+</form>
+
+<!--<div>-->
+<!--    <div>-->
+<!--        EProto System-->
+<!--    </div>-->
+<!--    <div>-->
+<!--        <button><a th:href="@{/loginView}">Login</a></button>-->
+<!--        <button><a th:href="@{/registerView}">Register</a></button>-->
+<!--    </div>-->
+<!--</div>-->
 </body>
 </html>

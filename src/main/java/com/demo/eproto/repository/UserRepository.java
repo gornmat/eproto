@@ -1,16 +1,14 @@
 package com.demo.eproto.repository;
 
-import com.demo.eproto.model.Account;
+import com.demo.eproto.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface AccountRepository extends JpaRepository<Account, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
-    Optional<Account> getAccountByLogin(String login);
-
-
+//    Optional<User> getAccountByUserName(String userName);
 
 }
