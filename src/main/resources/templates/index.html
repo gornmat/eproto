@@ -10,7 +10,7 @@
 <body>
 <h2>Welcome</h2>
 
-<!--NAUCZYCIEL-->
+<!--Teacher-->
 <div sec:authorize="hasRole('ADMIN')">
     <div align="center">
         <div>
@@ -25,22 +25,30 @@
     </div>
 </div>
 
-<!--RODZIC-->
+<!--Parent-->
 <div sec:authorize="hasRole('USER')">
     <div>
-        <form th:object="${student}" method="post">
+        <form action="#" th:action="@{/saveStudent}" th:object="${student}" method="post">
             <table>
                 <tr>
+                    <td><p>Id</p></td>
+                    <td><input type="text" th:field="*{id}" readonly="readonly"/></td>
+                </tr>
+                <tr>
+                    <td><p>Id Parent</p></td>
+                    <td><input type="text" th:field="*{idParent}" readonly="readonly"/></td>
+                </tr>
+                <tr>
                     <td><p>First Name</p></td>
-                    <td><input type="text" th:value="*{firstName}"/></td>
+                    <td><input type="text" th:field="*{firstName}"/></td>
                 </tr>
                 <tr>
                     <td><p>Last Name</p></td>
-                    <td><input type="text" th:value="*{lastName}"/></td>
+                    <td><input type="text" th:field="*{lastName}"/></td>
                 </tr>
                 <tr>
                     <td><p>Class</p></td>
-                    <td><input type="text" th:value="*{clazz}" readonly="readonly"/></td>
+                    <td><input type="text" th:field="*{clazz}" readonly="readonly"/></td>
                 </tr>
                 <tr>
                     <td colspan="2">

@@ -1,5 +1,6 @@
 package com.demo.eproto.controller;
 
+import com.demo.eproto.model.Student;
 import com.demo.eproto.model.User;
 import com.demo.eproto.service.StudentService;
 import com.demo.eproto.service.UserService;
@@ -13,13 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.logging.Logger;
-
 @Controller
 @AllArgsConstructor
 public class AppController {
 
-    private static final Logger LOGGER = Logger.getLogger(AppController.class.getName());
     private final UserService userService;
     private final StudentService studentService;
 
@@ -40,7 +38,6 @@ public class AppController {
         }
 
         if ("ROLE_USER".equals(role)) {
-            //wyswietlanie rodzic
             var student = studentService.getStudentByIdParent(user.getId());
             mav.addObject("student", student);
         }
@@ -56,9 +53,14 @@ public class AppController {
     }
 
     @PostMapping("createAccount")
-    public String createStudent(@ModelAttribute("user") User user) {
-        LOGGER.info("TEST");
+    public String createAccount(@ModelAttribute("user") User user) {
         userService.createUser(user);
         return "login";
+    }
+
+    @PostMapping("saveStudent")
+    public String saveStudent(@ModelAttribute("student") Student student) {
+        studentService.save(student);
+        return "redirect:/";
     }
 }

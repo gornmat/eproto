@@ -16,4 +16,8 @@ public class StudentService {
     public Student getStudentByIdParent(Long idParent) {
         return repository.getStudentByIdParent(idParent).orElse(new Student());
     }
+
+    public void save(Student student) {
+        repository.save(student);
+    }
 }
