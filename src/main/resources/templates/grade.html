@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Home</title>
+</head>
+<body>
+<h2>Welcome</h2>
+
+<!--Teacher-->
+<div sec:authorize="hasRole('ADMIN')">
+    <form action="#" th:action="@{/saveGrade}" th:object="${studentTask}" method="post">
+        <table border="1">
+            <tr>
+                <td>Student's Task ID</td>
+                <td><input type="text" th:field="*{id}" readonly="readonly"/></td>
+            </tr>
+            <tr>
+                <td>Id Task</td>
+                <td><input type="text" th:field="*{idTask}" readonly="readonly"/></td>
+            </tr>
+            <tr>
+                <td>Id Student</td>
+                <td><input type="text" th:field="*{idStudent}" readonly="readonly"/></td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td><input type="text" th:field="*{description}" readonly="readonly"/></td>
+            </tr>
+            <tr>
+                <td>Grade</td>
+                <td>
+                    <select th:field="*{grade}">
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Due Date</td>
+                <td><input type="text" th:field="*{dueDate}" readonly="readonly"/></td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="submit">
+                        <a th:href="@{'/showStudent/' + *{idStudent}}">Cancel</a>
+                    </button>
+                </td>
+                <td><input type="submit" value="Submit"/></td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout"/>
+</form>
+
+</body>
+</html>

@@ -1,21 +1,16 @@
 package com.demo.eproto.controller;
 
 import com.demo.eproto.model.Student;
+import com.demo.eproto.model.StudentTask;
 import com.demo.eproto.model.Task;
 import com.demo.eproto.model.User;
-import com.demo.eproto.service.ImageFileService;
-import com.demo.eproto.service.StudentService;
-import com.demo.eproto.service.TaskService;
-import com.demo.eproto.service.UserService;
+import com.demo.eproto.service.*;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -30,6 +25,7 @@ public class AppController {
     private final StudentService studentService;
     private final ImageFileService imageFileService;
     private final TaskService taskService;
+    private final StudentTaskService studentTaskService;
 
     @RequestMapping("/login")
     public String login() {
@@ -81,10 +77,12 @@ public class AppController {
         return "redirect:/";
     }
 
-    @PostMapping("showStudent")
-    public ModelAndView showStudent(@ModelAttribute("student") Student student) {
+    @GetMapping("/showStudent/{id}")
+    public ModelAndView showStudent(@PathVariable(name = "id") Long id) {
         ModelAndView mav = new ModelAndView("student");
-        mav.addObject("student", student);
+        mav.addObject("grade", "");
+        var studentTasks = studentTaskService.getTasksForStudent(id);
+        mav.addObject("studentTasks", studentTasks);
         return mav;
     }
 
@@ -93,6 +91,23 @@ public class AppController {
         var user = getCurrentUser();
         studentService.delete(user);
         return "redirect:/";
+    }
+
+    @GetMapping("/editGrade/{id}")
+    public ModelAndView editGrade(@PathVariable(name = "id") Long id) {
+        ModelAndView mav = new ModelAndView("grade");
+        var studentTask = studentTaskService.getTask(id);
+        mav.addObject("studentTask", studentTask);
+        return mav;
+    }
+
+    @PostMapping("/saveGrade")
+    public ModelAndView saveGrade(@ModelAttribute("studentTask") StudentTask studentTask) {
+        ModelAndView mav = new ModelAndView("student");
+        studentTaskService.updateGrade(studentTask);
+        var studentTasks = studentTaskService.getTasksForStudent(studentTask.getIdStudent());
+        mav.addObject("studentTasks", studentTasks);
+        return mav;
     }
 
     @PostMapping("/uploadFile")

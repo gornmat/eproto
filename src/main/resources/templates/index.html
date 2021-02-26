@@ -31,10 +31,9 @@
             <td th:text="${student.lastName}"></td>
             <td th:text="${student.clazz}"></td>
             <td>
-                <form action="#" th:action="@{/showStudent}" th:object="${student}" method="post">
-                    <button type="submit">Show tasks</button>
-                </form>
-
+                <button type="submit">
+                    <a th:href="@{'/showStudent/' + ${student.id}}">Show tasks</a>
+                </button>
             </td>
         </tr>
         </tbody>

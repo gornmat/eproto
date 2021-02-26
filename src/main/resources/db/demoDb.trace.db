@@ -2665,3 +2665,6 @@ org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
 	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+2021-02-26 15:15:55 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "GRADE VARCHAR(1)": "'null' (4)"; SQL statement:
+update student_tasks set description=?, due_date=?, grade=?, id_student=?, id_task=? where id=? [22001-200]

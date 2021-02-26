@@ -53,6 +53,6 @@ CREATE TABLE student_tasks
     id_task     INT          NOT NULL,
     id_student  INT          NOT NULL,
     description VARCHAR(250) NOT NULL,
-    grade       VARCHAR(1)   NULL,
+    grade       VARCHAR(10) NULL,
     due_date    DATE
 );

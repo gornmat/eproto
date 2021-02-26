@@ -26,4 +26,15 @@ public class StudentTaskService {
         repository.saveAll(studentTasks);
     }
 
+    public List<StudentTask> getTasksForStudent(Long idStudent) {
+        return repository.findAllByIdStudent(idStudent);
+    }
+
+    public StudentTask getTask(Long id) {
+        return repository.findById(id).get();
+    }
+
+    public void updateGrade(StudentTask studentTask) {
+        repository.save(studentTask);
+    }
 }

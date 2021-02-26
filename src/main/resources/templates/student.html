@@ -12,13 +12,36 @@
 
 <!--Teacher-->
 <div sec:authorize="hasRole('ADMIN')">
+    <table border="1">
+        <thead>
+        <tr>
+            <th>Student's Task ID</th>
+            <th>Id Task</th>
+            <th>Id Student</th>
+            <th>Description</th>
+            <th>Grade</th>
+            <th>Due Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="task : ${studentTasks}">
+            <td th:text="${task.id}"></td>
+            <td th:text="${task.idTask}"></td>
+            <td th:text="${task.idStudent}"></td>
+            <td th:text="${task.description}"></td>
+            <td th:text="${task.grade}"></td>
+            <td type="date" th:text="${task.dueDate}"></td>
+            <td>
+                <button type="submit">
+                    <a th:href="@{'/editGrade/' + ${task.id}}">Edit</a>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
 </div>
 
-<!--Parent-->
-<div sec:authorize="hasRole('USER')"></div>
-
-<br>
 <form th:action="@{/index}" method="post">
     <input type="submit" value="Back"/>
 </form>
