@@ -10,35 +10,38 @@
 <body>
 <!--Teacher-->
 <div sec:authorize="hasRole('ADMIN')">
-    <table>
-        <thead>
-        <tr>
-            <th>Student ID</th>
-            <th>Id Parent</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Class</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="student : ${students}">
-            <td th:text="${student.id}"></td>
-            <td th:text="${student.idParent}"></td>
-            <td th:text="${student.firstName}"></td>
-            <td th:text="${student.lastName}"></td>
-            <td th:text="${student.clazz}"></td>
-            <td>
-                <button type="submit">
-                    <a th:href="@{'/showStudent/' + ${student.id}}">Show tasks</a>
-                </button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <div>
+        <h2>Students List</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Student ID</th>
+                <th>Id Parent</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Class</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="student : ${students}">
+                <td th:text="${student.id}"></td>
+                <td th:text="${student.idParent}"></td>
+                <td th:text="${student.firstName}"></td>
+                <td th:text="${student.lastName}"></td>
+                <td th:text="${student.clazz}"></td>
+                <td>
+                    <button type="submit">
+                        <a th:href="@{'/showStudent/' + ${student.id}}">Show tasks</a>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
     <div>
-        <h2>Tasks</h2>
+        <h2>Tasks List</h2>
         <table>
             <thead>
             <tr>
@@ -57,7 +60,10 @@
             </tr>
             </tbody>
         </table>
+    </div>
 
+    <div>
+        <h2>Task Manager</h2>
         <form action="#" th:action="@{/createTask}" th:object="${task}" method="post">
             <table border="1">
                 <tr>
@@ -78,8 +84,7 @@
     </div>
 
     <div>
-        <h2>Message</h2>
-
+        <h2>Messenger</h2>
         <form th:action="@{/sendMessage}" method="post">
             <table border="1">
                 <tr>
@@ -98,8 +103,7 @@
 <!--Parent-->
 <div sec:authorize="hasRole('USER')">
     <div>
-        <h2>Message</h2>
-
+        <h2>Message List</h2>
         <table>
             <thead>
             <tr>
@@ -123,7 +127,7 @@
 
     <br>
     <div>
-        <h2>Child</h2>
+        <h2>Child Details</h2>
         <form action="#" th:action="@{/saveStudent}" th:object="${student}" method="post">
             <table>
                 <tr>
@@ -153,13 +157,11 @@
                 </tr>
             </table>
         </form>
+
+        <form action="#" th:action="@{/deleteStudent}" th:object="${student}" method="post">
+            <button type="submit">Delete</button>
+        </form>
     </div>
-
-    <form action="#" th:action="@{/deleteStudent}" th:object="${student}" method="post">
-        <button type="submit">Delete</button>
-    </form>
-
-    <!--    File upload-->
 
     <div>
         <h2>Upload File</h2>
@@ -172,12 +174,8 @@
         </form>
     </div>
 
-    <!--    <div>-->
-    <!--        <img th:src="@{image}" th:if="${image ne null}"/>-->
-    <!--    </div>-->
-
     <div>
-        <h2>Grades</h2>
+        <h2>Child's Grades</h2>
         <table border="1">
             <thead>
             <tr>
@@ -201,7 +199,6 @@
             </tbody>
         </table>
     </div>
-
 </div>
 
 <br>

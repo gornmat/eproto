@@ -11,8 +11,8 @@ CREATE TABLE users
 );
 
 insert into users (user_name, password, clazz, role, enabled)
-values ('testN', '$2a$10$Tr.GLjjbwoEZMo.8VsR7JOkTo7YYjN9ZHXHrRG6bM1rtgMx8XmPtO', 'testClazz', 'ROLE_ADMIN', true),
-       ('testR', '$2a$10$Tr.GLjjbwoEZMo.8VsR7JOkTo7YYjN9ZHXHrRG6bM1rtgMx8XmPtO', 'testClazz', 'ROLE_USER', true);
+values ('n@test.test', '$2a$10$Tr.GLjjbwoEZMo.8VsR7JOkTo7YYjN9ZHXHrRG6bM1rtgMx8XmPtO', 'testClazz', 'ROLE_ADMIN', true),
+       ('r@test.test', '$2a$10$Tr.GLjjbwoEZMo.8VsR7JOkTo7YYjN9ZHXHrRG6bM1rtgMx8XmPtO', 'testClazz', 'ROLE_USER', true);
 
 
 DROP TABLE IF EXISTS students;
