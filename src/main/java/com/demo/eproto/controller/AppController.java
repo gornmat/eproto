@@ -55,6 +55,8 @@ public class AppController {
 //            var path = imageFileService.getImagePath(user.getId());
 //            InputStream is = path != null ? new ByteArrayInputStream(path) : null;
 //            mav.addObject("image", is);
+            var messages = messageService.getMessages(user.getId());
+            mav.addObject("messages", messages);
             var studentTasks = studentTaskService.getTasksForStudent(student.getId());
             mav.addObject("studentTasks", studentTasks);
         }
@@ -138,6 +140,13 @@ public class AppController {
         var teacher = getCurrentUser();
         var parents = userService.getUsersByClazz(teacher.getClazz());
         messageService.sendMessage(parents, message, teacher);
+        return "redirect:/";
+    }
+
+    @GetMapping("/readMessage/{id}")
+    public String readMessage(@PathVariable(name = "id") Long id) {
+        var teacher = getCurrentUser();
+        messageService.readMessage(id);
         return "redirect:/";
     }
 

@@ -8,8 +8,6 @@
     <title>Home</title>
 </head>
 <body>
-<h2>Welcome</h2>
-
 <!--Teacher-->
 <div sec:authorize="hasRole('ADMIN')">
     <table>
@@ -99,35 +97,63 @@
 
 <!--Parent-->
 <div sec:authorize="hasRole('USER')">
-    <form action="#" th:action="@{/saveStudent}" th:object="${student}" method="post">
+    <div>
+        <h2>Message</h2>
+
         <table>
+            <thead>
             <tr>
-                <td><p>Id</p></td>
-                <td><input type="text" th:field="*{id}" readonly="readonly"/></td>
+                <th>Id Teacher</th>
+                <th>Message</th>
             </tr>
-            <tr>
-                <td><p>Id Parent</p></td>
-                <td><input type="text" th:field="*{idParent}" readonly="readonly"/></td>
-            </tr>
-            <tr>
-                <td><p>First Name</p></td>
-                <td><input type="text" th:field="*{firstName}"/></td>
-            </tr>
-            <tr>
-                <td><p>Last Name</p></td>
-                <td><input type="text" th:field="*{lastName}"/></td>
-            </tr>
-            <tr>
-                <td><p>Class</p></td>
-                <td><input type="text" th:field="*{clazz}" readonly="readonly"/></td>
-            </tr>
-            <tr>
+            </thead>
+            <tbody>
+            <tr th:each="message : ${messages}">
+                <td th:text="${message.idTeacher}"></td>
+                <td th:text="${message.messageText}"></td>
                 <td colspan="2">
-                    <button type="submit">Save</button>
+                    <button type="submit">
+                        <a th:href="@{'/readMessage/' + ${message.id}}">Done</a>
+                    </button>
                 </td>
             </tr>
+            </tbody>
         </table>
-    </form>
+    </div>
+
+    <br>
+    <div>
+        <h2>Child</h2>
+        <form action="#" th:action="@{/saveStudent}" th:object="${student}" method="post">
+            <table>
+                <tr>
+                    <td><p>Id</p></td>
+                    <td><input type="text" th:field="*{id}" readonly="readonly"/></td>
+                </tr>
+                <tr>
+                    <td><p>Id Parent</p></td>
+                    <td><input type="text" th:field="*{idParent}" readonly="readonly"/></td>
+                </tr>
+                <tr>
+                    <td><p>First Name</p></td>
+                    <td><input type="text" th:field="*{firstName}"/></td>
+                </tr>
+                <tr>
+                    <td><p>Last Name</p></td>
+                    <td><input type="text" th:field="*{lastName}"/></td>
+                </tr>
+                <tr>
+                    <td><p>Class</p></td>
+                    <td><input type="text" th:field="*{clazz}" readonly="readonly"/></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <button type="submit">Save</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
 
     <form action="#" th:action="@{/deleteStudent}" th:object="${student}" method="post">
         <button type="submit">Delete</button>
@@ -152,28 +178,28 @@
 
     <div>
         <h2>Grades</h2>
-    <table border="1">
-        <thead>
-        <tr>
-            <th>Student's Task ID</th>
-            <th>Id Task</th>
-            <th>Id Student</th>
-            <th>Description</th>
-            <th>Grade</th>
-            <th>Due Date</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="task : ${studentTasks}">
-            <td th:text="${task.id}"></td>
-            <td th:text="${task.idTask}"></td>
-            <td th:text="${task.idStudent}"></td>
-            <td th:text="${task.description}"></td>
-            <td th:text="${task.grade}"></td>
-            <td type="date" th:text="${task.dueDate}"></td>
-        </tr>
-        </tbody>
-    </table>
+        <table border="1">
+            <thead>
+            <tr>
+                <th>Student's Task ID</th>
+                <th>Id Task</th>
+                <th>Id Student</th>
+                <th>Description</th>
+                <th>Grade</th>
+                <th>Due Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="task : ${studentTasks}">
+                <td th:text="${task.id}"></td>
+                <td th:text="${task.idTask}"></td>
+                <td th:text="${task.idStudent}"></td>
+                <td th:text="${task.description}"></td>
+                <td th:text="${task.grade}"></td>
+                <td type="date" th:text="${task.dueDate}"></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 
 </div>

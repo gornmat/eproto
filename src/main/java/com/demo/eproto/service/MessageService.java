@@ -28,4 +28,14 @@ public class MessageService {
         repository.saveAll(messages);
     }
 
+    public List<Message> getMessages(Long id) {
+        return repository.getAllByIdParentAndEnabled(id, true);
+    }
+
+    public void readMessage(Long id) {
+        var message = repository.findById(id).get();
+        message.setEnabled(false);
+        repository.save(message);
+    }
+
 }

@@ -8,8 +8,6 @@
     <title>Home</title>
 </head>
 <body>
-<h2>Welcome</h2>
-
 <!--Teacher-->
 <div sec:authorize="hasRole('ADMIN')">
     <form action="#" th:action="@{/saveGrade}" th:object="${studentTask}" method="post">
