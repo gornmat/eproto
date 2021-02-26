@@ -26,4 +26,9 @@ public class StudentService {
     public void save(Student student) {
         repository.save(student);
     }
+
+    public void delete(User user) {
+        var student = repository.getStudentByIdParent(user.getId());
+        student.ifPresent(repository::delete);
+    }
 }

@@ -68,23 +68,26 @@
         </table>
     </form>
 
+    <form action="#" th:action="@{/deleteStudent}" th:object="${student}" method="post">
+        <button type="submit">Delete</button>
+    </form>
 
-<!--    File upload-->
+    <!--    File upload-->
 
     <div>
         <h2>Upload File</h2>
-        <p th:text="${message}" th:if="${message ne null}" ></p>
+        <p th:text="${message}" th:if="${message ne null}"></p>
         <form action="#" th:action="@{/uploadFile}" enctype="multipart/form-data" method="post">
-            <div >
+            <div>
                 <input type="file" name="file">
             </div>
             <button type="submit">Upload File</button>
         </form>
     </div>
 
-<!--    <div>-->
-<!--        <img th:src="@{image}" th:if="${image ne null}"/>-->
-<!--    </div>-->
+    <!--    <div>-->
+    <!--        <img th:src="@{image}" th:if="${image ne null}"/>-->
+    <!--    </div>-->
 
 </div>
 
