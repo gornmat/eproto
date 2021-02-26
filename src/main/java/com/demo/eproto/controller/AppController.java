@@ -81,6 +81,13 @@ public class AppController {
         return "redirect:/";
     }
 
+    @PostMapping("showStudent")
+    public ModelAndView showStudent(@ModelAttribute("student") Student student) {
+        ModelAndView mav = new ModelAndView("student");
+        mav.addObject("student", student);
+        return mav;
+    }
+
     @RequestMapping("/deleteStudent")
     public String deleteStudent(@ModelAttribute("student") Student student) {
         var user = getCurrentUser();

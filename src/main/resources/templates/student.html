@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Home</title>
+</head>
+<body>
+<h2>Welcome</h2>
+
+<!--Teacher-->
+<div sec:authorize="hasRole('ADMIN')">
+
+</div>
+
+<!--Parent-->
+<div sec:authorize="hasRole('USER')"></div>
+
+<br>
+<form th:action="@{/index}" method="post">
+    <input type="submit" value="Back"/>
+</form>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout"/>
+</form>
+
+</body>
+</html>
