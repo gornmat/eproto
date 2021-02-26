@@ -102,8 +102,9 @@ public class AppController {
 
     @PostMapping("createTask")
     public String createTask(@ModelAttribute("task") Task task) {
-        task.setIdTeacher(getCurrentUser().getId());
-        taskService.createTask(task);
+        User user = getCurrentUser();
+        var students = studentService.getStudentsByClazz(user.getClazz());
+        taskService.createTask(user, students, task);
         return "redirect:/";
     }
 

@@ -45,3 +45,14 @@ CREATE TABLE tasks
     description VARCHAR(250) NOT NULL,
     due_date    DATE
 );
+
+DROP TABLE IF EXISTS student_tasks;
+CREATE TABLE student_tasks
+(
+    id          INT AUTO_INCREMENT PRIMARY KEY,
+    id_task     INT          NOT NULL,
+    id_student  INT          NOT NULL,
+    description VARCHAR(250) NOT NULL,
+    grade       VARCHAR(1)   NULL,
+    due_date    DATE
+);
