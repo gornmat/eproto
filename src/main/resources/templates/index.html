@@ -133,6 +133,32 @@
     <!--        <img th:src="@{image}" th:if="${image ne null}"/>-->
     <!--    </div>-->
 
+    <div>
+        <h2>Grades</h2>
+    <table border="1">
+        <thead>
+        <tr>
+            <th>Student's Task ID</th>
+            <th>Id Task</th>
+            <th>Id Student</th>
+            <th>Description</th>
+            <th>Grade</th>
+            <th>Due Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="task : ${studentTasks}">
+            <td th:text="${task.id}"></td>
+            <td th:text="${task.idTask}"></td>
+            <td th:text="${task.idStudent}"></td>
+            <td th:text="${task.description}"></td>
+            <td th:text="${task.grade}"></td>
+            <td type="date" th:text="${task.dueDate}"></td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+
 </div>
 
 <br>

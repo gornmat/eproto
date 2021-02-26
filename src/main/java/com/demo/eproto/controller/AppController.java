@@ -53,6 +53,8 @@ public class AppController {
 //            var path = imageFileService.getImagePath(user.getId());
 //            InputStream is = path != null ? new ByteArrayInputStream(path) : null;
 //            mav.addObject("image", is);
+            var studentTasks = studentTaskService.getTasksForStudent(student.getId());
+            mav.addObject("studentTasks", studentTasks);
         }
 
         return mav;
@@ -80,7 +82,6 @@ public class AppController {
     @GetMapping("/showStudent/{id}")
     public ModelAndView showStudent(@PathVariable(name = "id") Long id) {
         ModelAndView mav = new ModelAndView("student");
-        mav.addObject("grade", "");
         var studentTasks = studentTaskService.getTasksForStudent(id);
         mav.addObject("studentTasks", studentTasks);
         return mav;
