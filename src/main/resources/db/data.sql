@@ -56,3 +56,13 @@ CREATE TABLE student_tasks
     grade       VARCHAR(10) NULL,
     due_date    DATE
 );
+
+DROP TABLE IF EXISTS messages;
+CREATE TABLE messages
+(
+    id           INT AUTO_INCREMENT PRIMARY KEY,
+    id_teacher   INT          NOT NULL,
+    id_parent    INT          NOT NULL,
+    message_text VARCHAR(250) NOT NULL,
+    enabled      BIT DEFAULT NOT NULL
+);

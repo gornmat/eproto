@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -23,5 +25,9 @@ public class UserService {
 
     public User getUserByName(String userName) {
         return repository.getUserByUserName(userName).orElseThrow(UserNotFoundException::new);
+    }
+
+    public List<User> getUsersByClazz(String clazz) {
+        return repository.getAllByClazzAndRole(clazz, "ROLE_USER");
     }
 }

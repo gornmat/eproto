@@ -78,6 +78,23 @@
             </table>
         </form>
     </div>
+
+    <div>
+        <h2>Message</h2>
+
+        <form th:action="@{/sendMessage}" method="post">
+            <table border="1">
+                <tr>
+                    <td><input type="text" th:value="${message}" name="message"/></td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="submit">Send</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
 </div>
 
 <!--Parent-->

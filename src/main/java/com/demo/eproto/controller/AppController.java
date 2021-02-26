@@ -26,6 +26,7 @@ public class AppController {
     private final ImageFileService imageFileService;
     private final TaskService taskService;
     private final StudentTaskService studentTaskService;
+    private final MessageService messageService;
 
     @RequestMapping("/login")
     public String login() {
@@ -39,6 +40,7 @@ public class AppController {
 
         ModelAndView mav = new ModelAndView("index");
         if ("ROLE_ADMIN".equals(role)) {
+            mav.addObject("message", "");
             var students = studentService.getStudentsByClazz(user.getClazz());
             mav.addObject("students", students);
             List<Task> tasks = taskService.findAllByIdTeacher(user.getId());
@@ -128,6 +130,14 @@ public class AppController {
         User user = getCurrentUser();
         var students = studentService.getStudentsByClazz(user.getClazz());
         taskService.createTask(user, students, task);
+        return "redirect:/";
+    }
+
+    @PostMapping("sendMessage")
+    public String sendMessage(@ModelAttribute("message") String message) {
+        var teacher = getCurrentUser();
+        var parents = userService.getUsersByClazz(teacher.getClazz());
+        messageService.sendMessage(parents, message, teacher);
         return "redirect:/";
     }
 
