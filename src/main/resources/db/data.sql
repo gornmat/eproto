@@ -36,3 +36,12 @@ CREATE TABLE files
     file_name VARCHAR(250) NOT NULL,
     img       BLOB
 );
+
+DROP TABLE IF EXISTS tasks;
+CREATE TABLE tasks
+(
+    id          INT AUTO_INCREMENT PRIMARY KEY,
+    id_teacher  INT          NOT NULL,
+    description VARCHAR(250) NOT NULL,
+    due_date    DATE
+);

@@ -1,22 +1,26 @@
 package com.demo.eproto.controller;
 
 import com.demo.eproto.model.Student;
+import com.demo.eproto.model.Task;
 import com.demo.eproto.model.User;
 import com.demo.eproto.service.ImageFileService;
 import com.demo.eproto.service.StudentService;
+import com.demo.eproto.service.TaskService;
 import com.demo.eproto.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
+import java.util.List;
 
 @Controller
 @AllArgsConstructor
@@ -25,6 +29,7 @@ public class AppController {
     private final UserService userService;
     private final StudentService studentService;
     private final ImageFileService imageFileService;
+    private final TaskService taskService;
 
     @RequestMapping("/login")
     public String login() {
@@ -40,6 +45,9 @@ public class AppController {
         if ("ROLE_ADMIN".equals(role)) {
             var students = studentService.getStudentsByClazz(user.getClazz());
             mav.addObject("students", students);
+            List<Task> tasks = taskService.findAllByIdTeacher(user.getId());
+            mav.addObject("tasks", tasks);
+            mav.addObject("task", new Task());
         }
 
         if ("ROLE_USER".equals(role)) {
@@ -89,6 +97,13 @@ public class AppController {
         }
         String fileName = imageFileService.uploadFile(user, file);
         attributes.addFlashAttribute("message", "You successfully uploaded " + fileName + '!');
+        return "redirect:/";
+    }
+
+    @PostMapping("createTask")
+    public String createTask(@ModelAttribute("task") Task task) {
+        task.setIdTeacher(getCurrentUser().getId());
+        taskService.createTask(task);
         return "redirect:/";
     }
 

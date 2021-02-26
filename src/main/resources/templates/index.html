@@ -25,15 +25,55 @@
         </thead>
         <tbody>
         <tr th:each="student : ${students}">
-            <td th:text="${student.id}">Product ID</td>
-            <td th:text="${student.idParent}">Name</td>
-            <td th:text="${student.firstName}">Brand</td>
-            <td th:text="${student.lastName}">Made in</td>
-            <td th:text="${student.clazz}">Price</td>
+            <td th:text="${student.id}"></td>
+            <td th:text="${student.idParent}"></td>
+            <td th:text="${student.firstName}"></td>
+            <td th:text="${student.lastName}"></td>
+            <td th:text="${student.clazz}"></td>
             <td>Actions</td>
         </tr>
         </tbody>
     </table>
+
+    <div>
+        <h2>Tasks</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Task ID</th>
+                <th>Id Teacher</th>
+                <th>Description</th>
+                <th>Due Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="task : ${tasks}">
+                <td th:text="${task.id}"></td>
+                <td th:text="${task.idTeacher}"></td>
+                <td th:text="${task.description}"></td>
+                <td type="date" th:text="${task.dueDate}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <form action="#" th:action="@{/createTask}" th:object="${task}" method="post">
+            <table border="1">
+                <tr>
+                    <td>Description</td>
+                    <td>Due date</td>
+                </tr>
+                <tr>
+                    <td><input type="text" th:field="*{description}"/></td>
+                    <td><input type="date" th:field="*{dueDate}"/></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <button type="submit">Add</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
 </div>
 
 <!--Parent-->
