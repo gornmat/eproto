@@ -2,6 +2,7 @@ package com.demo.eproto.controller;
 
 import com.demo.eproto.model.Student;
 import com.demo.eproto.model.User;
+import com.demo.eproto.service.ImageFileService;
 import com.demo.eproto.service.StudentService;
 import com.demo.eproto.service.UserService;
 import lombok.AllArgsConstructor;
@@ -12,7 +13,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 
 @Controller
 @AllArgsConstructor
@@ -20,6 +27,7 @@ public class AppController {
 
     private final UserService userService;
     private final StudentService studentService;
+    private final ImageFileService imageFileService;
 
     @RequestMapping("/login")
     public String login() {
@@ -28,9 +36,8 @@ public class AppController {
 
     @RequestMapping({"/index", "/"})
     public ModelAndView index() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        var user = userService.getUserByName(authentication.getName());
-        var role = authentication.getAuthorities().stream().findFirst().get().toString();
+        var user = getCurrentUser();
+        var role = getCurrentUserRole();
 
         ModelAndView mav = new ModelAndView("index");
         if ("ROLE_ADMIN".equals(role)) {
@@ -41,6 +48,10 @@ public class AppController {
         if ("ROLE_USER".equals(role)) {
             var student = studentService.getStudentForParent(user);
             mav.addObject("student", student);
+            //TODO display img
+//            var path = imageFileService.getImagePath(user.getId());
+//            InputStream is = path != null ? new ByteArrayInputStream(path) : null;
+//            mav.addObject("image", is);
         }
 
         return mav;
@@ -63,5 +74,27 @@ public class AppController {
     public String saveStudent(@ModelAttribute("student") Student student) {
         studentService.save(student);
         return "redirect:/";
+    }
+
+    @PostMapping("/uploadFile")
+    public String uploadFile(@RequestParam("file") MultipartFile file, RedirectAttributes attributes) {
+        var user = getCurrentUser();
+        if (file.isEmpty()) {
+            attributes.addFlashAttribute("message", "Please select a file to upload.");
+            return "redirect:/";
+        }
+        String fileName = imageFileService.uploadFile(user, file);
+        attributes.addFlashAttribute("message", "You successfully uploaded " + fileName + '!');
+        return "redirect:/";
+    }
+
+    private User getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return userService.getUserByName(authentication.getName());
+    }
+
+    private String getCurrentUserRole() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.getAuthorities().stream().findFirst().get().toString();
     }
 }

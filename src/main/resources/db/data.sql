@@ -2,12 +2,12 @@ DROP TABLE IF EXISTS users;
 
 CREATE TABLE users
 (
-    id       INT AUTO_INCREMENT PRIMARY KEY,
+    id        INT AUTO_INCREMENT PRIMARY KEY,
     user_name VARCHAR(250) NOT NULL,
-    password VARCHAR(250) NOT NULL,
-    clazz    VARCHAR(250) NOT NULL,
-    role     varchar(45)  NOT NULL,
-    enabled  BIT DEFAULT NULL
+    password  VARCHAR(250) NOT NULL,
+    clazz     VARCHAR(250) NOT NULL,
+    role      varchar(45)  NOT NULL,
+    enabled   BIT DEFAULT NULL
 );
 
 insert into users (user_name, password, clazz, role, enabled)
@@ -27,3 +27,12 @@ CREATE TABLE students
 
 insert into students (id_parent, first_name, last_name, clazz)
 values (2, 'test', 'test', 'testClazz');
+
+DROP TABLE IF EXISTS files;
+CREATE TABLE files
+(
+    id        INT AUTO_INCREMENT PRIMARY KEY,
+    id_parent INT          NOT NULL,
+    file_name VARCHAR(250) NOT NULL,
+    img       BLOB
+);

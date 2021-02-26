@@ -67,8 +67,28 @@
             </tr>
         </table>
     </form>
+
+
+<!--    File upload-->
+
+    <div>
+        <h2>Upload File</h2>
+        <p th:text="${message}" th:if="${message ne null}" ></p>
+        <form action="#" th:action="@{/uploadFile}" enctype="multipart/form-data" method="post">
+            <div >
+                <input type="file" name="file">
+            </div>
+            <button type="submit">Upload File</button>
+        </form>
+    </div>
+
+<!--    <div>-->
+<!--        <img th:src="@{image}" th:if="${image ne null}"/>-->
+<!--    </div>-->
+
 </div>
 
+<br>
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Logout"/>
 </form>
